@@ -14,10 +14,11 @@
 <script type="text/javascript">
 function jis(){
  var age=$("#age").val();
- var sex=$("input:radio:checked").val();//1、女  2、男
+ var sex=$("input[name='sex']:checked").val();//1、女  2、男
  var width=$("#width").val();
  var xjg=$("#xjg").val();
  var shengao=$("#shengao").val();
+ var race=$("input[name='race']:checked").val(); //1、白人或其他  2、黑人
  
  var xjgsum='';
  var phase='';
@@ -84,39 +85,87 @@ function jis(){
  		$("#txing").text(tixing);
 	}
 
- if(sex==2){
+
+ 
+/*  if(sex==2){
 	   var sum=accMul(accMul(186,Math.pow(xjgsum,-1.154)),Math.pow(age,-0.203)).toFixed(2);
 	   $("#cfr").text(sum);
  }else{
 	   var sum=accMul(accMul(accMul(186,Math.pow(xjgsum,-1.154)),Math.pow(age,-0.203)),0.742).toFixed(2);
 	   $("#cfr").text(sum);
- }	
+ }	 */
+ var sum = calculateXJG(race,sex,xjg,age);
+ $("#cfr").text(sum);
  if(sum>=90){
 	 phase=1;
- }else if(sum>=60 && sum<=89){
+ }else if(sum>=60 && sum<90){
 	 phase=2;
- }else if(sum>=30 && sum<=59){
-	 phase=3;
- }else if(sum>=15 && sum<=29){
+ }else if(sum>=30 && sum<60){
+	 if(sum>=45 && sum<60){
+		 phase='3a';
+	 }else if(sum>=30 && sum<45){
+		 phase='3b';
+	 }
+ }else if(sum>=15 && sum<30){
 	 phase=4;
  }else if(sum<15){
 	 phase=5;
  }
  $("#phase").text(phase);
- $.ajax({
-   url: "/wx/ktckdfqzc.html",
-   dataType:"json",
-   type:"POST",
-   data:{wxid:wxid,age:age,sex:sex,width:width,xjgsum:xjgsum.toFixed(2),sum:sum,phase:phase,shengao:shengao,tzzs:tzzs
-   },
-   success: function(obj){
-	   if(obj.start==1){
-	    alert("数据写入成功!");
-	   }else{
-	    alert("请不要重复添加，亲!");
-	   }
-   }	 
- });
+
+
+}
+
+function calculateXJG(skin_color,sex,xjgsp,nl){
+	if(skin_color == '1'){
+		skin_color = "white";
+	}else{
+		skin_color = "black";
+	}
+	if(sex == "2"){
+		sex = "man";
+	}else if(sex == "1"){
+		sex = "woman";
+	}
+    var key1, key2, key3;
+
+    if (sex == 'woman') {
+      key2 = 0.7;
+      if (skin_color == 'black') {
+        key1 = 166;
+      }else if (skin_color == 'white') {
+        key1 = 144;
+      }
+
+      if ((xjgsp <= 62 && xjgsp >= 3) || (xjgsp <= 0.7 )) {
+        key3 = -0.329;
+      }else if ((xjgsp > 62) || (xjgsp > 0.7 && xjgsp< 3)) {
+        key3 = -1.209;
+      }
+    }else if (sex == 'man') {
+      key2 = 0.9;
+      if (skin_color == 'black') {
+        key1 = 163;
+      }else if (skin_color == 'white') {
+        key1 = 141;
+      }
+
+      if ((xjgsp <= 80 && xjgsp >= 3) || (xjgsp <= 0.9)) {
+        key3 = -0.411;
+      }else if ((xjgsp > 80) || (xjgsp > 0.9 && xjgsp < 3)) {
+        key3 = -1.209;
+      }
+    }
+
+    var scr;
+    if (xjgsp >= 3) {
+      scr = xjgsp / 88.4;
+    } else {
+      scr = xjgsp;
+    }
+
+   var result = key1 * Math.pow((scr / key2), key3) * Math.pow(0.993, nl);
+   return result.toFixed(2)
 }
 </script>
 </head>
@@ -136,10 +185,10 @@ function jis(){
             <td width="52">性别:</td>
             <td width="121"><p>
                 <label>
-                  <input type="radio" name="radio" id="sex" value="1"  />
+                  <input type="radio" name="sex" id="sex" value="1"  />
                   女</label>
                 <label>
-                  <input type="radio" name="radio" id="sex" value="2" />
+                  <input type="radio" name="sex" id="sex" value="2" />
                   男</label>
                 <br />
               </p></td>
@@ -157,10 +206,10 @@ function jis(){
             <td width="52">肤色：</td>
             <td width="121"><p>
                 <label>
-                  <input type="radio" name="radio" id="sex" value="1"  />
+                  <input type="radio" name="race" id="sex" value="1"  />
                   	白人或其他人种</label><p/>
                 <label>
-                  <input type="radio" name="radio" id="sex" value="2" />
+                  <input type="radio" name="race" id="sex" value="2" />
                   	黑人</label>
                <br />
               </p>
