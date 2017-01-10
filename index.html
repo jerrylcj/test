@@ -137,9 +137,9 @@ function calculateXJG(skin_color,sex,xjgsp,nl){
         key1 = 144;
       }
 
-      if ((xjgsp <= 62 && xjgsp >= 3) || (xjgsp <= 0.7 )) {
+      if ((xjgsp <= 62 && xjgsp >= 10) || (xjgsp <= 0.7 )) {//3改为10
         key3 = -0.329;
-      }else if ((xjgsp > 62) || (xjgsp > 0.7 && xjgsp< 3)) {
+      }else if ((xjgsp > 62) || (xjgsp > 0.7 && xjgsp< 10)) {//3改为10
         key3 = -1.209;
       }
     }else if (sex == 'man') {
@@ -150,15 +150,15 @@ function calculateXJG(skin_color,sex,xjgsp,nl){
         key1 = 141;
       }
 
-      if ((xjgsp <= 80 && xjgsp >= 3) || (xjgsp <= 0.9)) {
+      if ((xjgsp <= 80 && xjgsp >= 10) || (xjgsp <= 0.9)) {//3改为10
         key3 = -0.411;
-      }else if ((xjgsp > 80) || (xjgsp > 0.9 && xjgsp < 3)) {
+      }else if ((xjgsp > 80) || (xjgsp > 0.9 && xjgsp < 10)) {//3改为10
         key3 = -1.209;
       }
     }
 
     var scr;
-    if (xjgsp >= 3) {
+    if (xjgsp >= 10) {//3改为10
       scr = xjgsp / 88.4;
     } else {
       scr = xjgsp;
