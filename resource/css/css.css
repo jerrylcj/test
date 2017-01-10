@@ -1,0 +1,9 @@
+@charset "utf-8";
+/* CSS Document */
+body,a,div,table,td,tr,img,p,text,boder{margin:0; padding:0;}
+.box{background:url(../../resource/images/bg1.jpg) repeat-x #4d7fba;}
+.top{height:110px; background:url(../../resource/images/logo.png) no-repeat center;}
+.jj{height:15px;}
+.bt{height:25px; background:#e0e8f3; font:微软雅黑; font-size:14px; color:#0962ae; margin:0 15px; padding-top:10px; padding-left:7px;}
+.wz{font:微软雅黑; font-size:12px; color:#0962ae; margin:0 auto; padding-left:15px;}
+.tu{ margin: 0 auto;}
