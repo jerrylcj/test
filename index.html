@@ -71,17 +71,32 @@ function jis(){
  if(!isNaN(shengao)&& !isNaN(width)&& shengao!=0){
  		var tixing='';
  		var tzzs=(width /(shengao/100)/(shengao/100)).toFixed(2);
- 		if(tzzs >= 18.5 && tzzs <=23.9){
- 			tixing='正常';
- 		}else if(tzzs >=27.9 && tzzs <=24){
- 			tixing='超重';
- 		}else if(tzzs >=28){
- 			tixing='肥胖';
- 		}else if(tzzs >=17 && tzzs< 18.5){
- 			tixing='偏轻';
- 		}else if(tzzs < 17){
- 			tixing='消瘦';
- 		}
+		if(sex == 2){//男
+			if(tzzs >= 18.5 && tzzs <25){
+				tixing='标准';
+			}else if(tzzs >=25 && tzzs <30){
+				tixing='超重';
+			}else if(tzzs >=30 && tzzs <35){
+				tixing='肥胖';
+			}else if(tzzs >=35){
+				tixing='过度肥胖';
+			}else if(tzzs < 18.5){
+				tixing='偏轻';
+			}
+		}else if(sex == 1){//女
+			if(tzzs >15 && tzzs <18.5){
+				tixing='偏瘦';
+			}else if(tzzs >= 18.5 && tzzs <25){
+				tixing='标准';
+			}else if(tzzs >=25 && tzzs <30){
+				tixing='超重';
+			}else if(tzzs >=30){
+				tixing='肥胖';
+			}else if(tzzs <= 15){
+				tixing='严重偏瘦';
+			}
+		}
+ 		
  		$("#tzzhishu").text(tzzs);
  		$("#txing").text(tixing);
 	}
@@ -204,7 +219,7 @@ function calculateXJG(skin_color,sex,xjgsp,nl){
             <td width="51">体重：</td>
             <td width="97"><input name="" type="text" id="width" style=" width:45px; background:#ebebeb""/>
               kg</td>
-            <td width="52">肤色：</td>
+            <td width="52">人种：</td>
             <td width="121"><p>
                 <label>
                   <input type="radio" name="race" id="sex" value="1"  />
@@ -224,12 +239,12 @@ function calculateXJG(skin_color,sex,xjgsp,nl){
           </tr>
           <tr height="17">
            <td>身高：</td>
-            <td><input name="shengao" id="shengao" type="text" style=" width:35px; background:#ebebeb""/>
+            <td><input name="shengao" id="shengao" type="text" style=" width:45px; background:#ebebeb""/>
               cm</td>
             <td width="52">血肌酐：</td>
             <td width="121"><p>
                 <input name="input" id="xjg" type="text" style="width:35px; background:#ebebeb""/>
-                umol/L<br />
+                umol/L或mg/dL<br />
               </p></td>
           </tr>
           <tr height="">
@@ -247,7 +262,7 @@ function calculateXJG(skin_color,sex,xjgsp,nl){
       </div><div class="jj"></div>
       <div class="bt"> <strong>BMI（体重指数）=体重kg/身高㎡</strong></div>
       <div class="jj"></div>
-      <div class="wz"><span style="float:left;">您的体重指数为</span><span id="tzzhishu" style="background:url(resource/images/line.png) no-repeat bottom; width:36px;text-align:center; display:block; float:left;">&nbsp;&nbsp;&nbsp;</span><span style="float:left;">体型属于：</span><span id="txing" style="background:url(resource/images/line.png) no-repeat bottom; width:36px;text-align:center; display:block; float:left;">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      <div class="wz"><span style="float:left;">您的体重指数为</span><span id="tzzhishu" style="background:url(resource/images/line.png) no-repeat bottom; width:36px;text-align:center; display:block; float:left;">&nbsp;&nbsp;&nbsp;</span><span style="float:left;">体型属于：</span><span id="txing" style="background:url(resource/images/line.png) no-repeat bottom; width:50px;text-align:center; display:block; float:left;">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
       <div class="jj"></div>
       
       <div class="jj"></div>
@@ -267,8 +282,8 @@ function calculateXJG(skin_color,sex,xjgsp,nl){
       <div class="jj"></div>
       <div class="bt"> <strong>慢性肾脏病定义及分期</strong></div>
       <div class="jj"></div>
-      <div class="tu"  style="margin-left:15px;"> <img src="resource/images/text.jpg" width="100%" /> </div>
-      <div class="jj"></div>
+      <!--<div class="tu"  style="margin-left:15px;"> <img src="resource/images/text.jpg" width="100%" /> </div>
+      <div class="jj"></div> -->
       <div class=" tu"> <img src="resource/images/3.jpg"  width="100%"/> </div>
       <div class="jj"></div>
       <div class=" tu"> <img src="resource/images/1.jpg"  width="100%"/> </div>
